@@ -14,10 +14,38 @@
     </p>
     <ul>
         <li><a href="{{ url_for('precipitation') }}">/api/v1.0/precipitation</a></li>
+            <ul>
+                <li>Endpoint returns the dates and precipitation as key value pairs.</li>
+                <li>[{"2015-01-01": 0.23}]</li>
+            </ul>
         <li><a href="{{ url_for('stations') }}">/api/v1.0/stations</a></li>
+            <ul>
+                <li>Endpoint returns Measurement Stations</li>
+            </ul>
         <li><a href="{{ url_for('tobs') }}">/api/v1.0/tobs</a></li>
+            <ul>
+                <li>Endpoint returns temperature observations for the past year</li>
+            </ul>
         <li>/api/v1.0/&lt;start&gt;</li>
-        <li>/api/v1.0/tobs/&lt;start&gt;/&lt;end&gt;</li>
+            <ul>
+                <li>Endpoint returns the following for all dates since the start (inclusive):</li>
+                <ul>
+                    <li>TMIN: Min Temperature</li>
+                    <li>TAVG: Avg Temperature</li>
+                    <li>TMAX: Max Temperature</li>
+                </ul>
+                <li>e.g. /api/v1.0/2015-01-013</li>
+            </ul>
+        <li>/api/v1.0/&lt;start&gt;/&lt;end&gt;</li>
+        <ul>
+            <li>Endpoint returns the following for all dates since the start (inclusive) but before the end (inclusive):</li>
+                <ul>
+                    <li>TMIN: Min Temperature</li>
+                    <li>TAVG: Avg Temperature</li>
+                    <li>TMAX: Max Temperature</li>
+                </ul>
+            <li>e.g. /api/v1.0/2015-01-01/2016-02-03</li>
+        </ul>
     </ul>
 
 </div>

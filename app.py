@@ -66,7 +66,7 @@ def tobs():
     start_date = start_date.strftime('%Y-%m-%d')
 
     # Query the data
-    precipitation_data = session.query(Measurement.date, Measurement.prcp) \
+    precipitation_data = session.query(Measurement.date, Measurement.tobs) \
         .filter(Measurement.date >= start_date,
                 Measurement.date <= most_recent_date) \
         .order_by(Measurement.date).all()
