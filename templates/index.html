@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Index</title>
+    <style>
+    </style>
 </head>
 <body>
 <div>
@@ -11,9 +13,9 @@
         Below you will find the api's available for this website:
     </p>
     <ul>
-        <li>/api/v1.0/precipitation</li>
-        <li>/api/v1.0/stations</li>
-        <li>/api/v1.0/tobs</li>
+        <li><a href="{{ url_for('precipitation') }}">/api/v1.0/precipitation</a></li>
+        <li><a href="{{ url_for('stations') }}">/api/v1.0/stations</a></li>
+        <li><a href="{{ url_for('tobs') }}">/api/v1.0/tobs</a></li>
         <li>/api/v1.0/&lt;start&gt;</li>
         <li>/api/v1.0/tobs/&lt;start&gt;/&lt;end&gt;</li>
     </ul>
