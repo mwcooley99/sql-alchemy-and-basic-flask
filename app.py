@@ -8,19 +8,16 @@ from sqlalchemy.orm import sessionmaker, scoped_session
 
 import datetime as dt
 
-# from funcs import prcp_query
-
-# from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 # Set up Models
-engine = create_engine('sqlite:///Instructions/Resources/hawaii.sqlite')
+engine = create_engine('sqlite:///hawaii.sqlite')
 Session = sessionmaker(bind=engine)
-# session = scoped_session(Session)
-# session = Session()
+session = scoped_session(Session)
+
 
 # Create the Base and models
 Base = automap_base()
@@ -38,7 +35,6 @@ def index():
 
 @app.route('/api/v1.0/precipitation')
 def precipitation():
-    session = Session()
     precipitation_data = session.query(Measurement.date,
                                        Measurement.prcp).all()
     return jsonify([{k: v} for k, v in precipitation_data])
@@ -46,7 +42,6 @@ def precipitation():
 
 @app.route('/api/v1.0/stations')
 def stations():
-    session = Session()
     stations = [s.__dict__ for s in session.query(Station).all()]
     for station in stations: station.pop('_sa_instance_state', None)
 
@@ -56,7 +51,6 @@ def stations():
 @app.route('/api/v1.0/tobs')
 def tobs():
     # Find the last data point
-    session = Session()
     most_recent_date, = session.query(Measurement.date).order_by(
         Measurement.date.desc()).first()
 
@@ -75,7 +69,6 @@ def tobs():
 
 @app.route('/api/v1.0/<start>')
 def stats_from_start(start):
-    session = Session()
     query = session.query(func.min(Measurement.tobs),
                           func.avg(Measurement.tobs),
                           func.max(Measurement.tobs)).filter(
@@ -87,7 +80,6 @@ def stats_from_start(start):
 
 @app.route('/api/v1.0/<start>/<end>')
 def stats_from_start_end(start, end):
-    session = Session()
     query = session.query(func.min(Measurement.tobs),
                           func.avg(Measurement.tobs),
                           func.max(Measurement.tobs)).filter(
