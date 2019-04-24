@@ -6,10 +6,12 @@ from sqlalchemy import create_engine, func, inspect
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import sessionmaker, scoped_session
 
+from flask_bootstrap import Bootstrap
+
 import datetime as dt
 
-
 app = Flask(__name__)
+bootstrap = Bootstrap(app)
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 

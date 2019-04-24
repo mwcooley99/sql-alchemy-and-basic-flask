@@ -1,14 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Index</title>
-    <style>
-    </style>
-</head>
+{% extends "base.html" %}
+
+{% block title %}Flasky{% endblock %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block page_content %}
 <body>
 <div>
-    <h1>Welcome to the Hawaii Climate Measurement API!</h1>
+    <h1 class="page-header">Welcome to the Hawaii Climate Measurement API!</h1>
     <p>
         Below you will find the api's available for this website:
     </p>
@@ -34,7 +35,8 @@
                     <li>TAVG: Avg Temperature</li>
                     <li>TMAX: Max Temperature</li>
                 </ul>
-                <li>e.g. /api/v1.0/2015-01-013</li>
+                <li><a href="{{ url_for('stats_from_start', start='2015-01-01')}}">
+                    e.g. /api/v1.0/2015-01-01</a></li>
             </ul>
         <li>/api/v1.0/&lt;start&gt;/&lt;end&gt;</li>
         <ul>
@@ -44,10 +46,11 @@
                     <li>TAVG: Avg Temperature</li>
                     <li>TMAX: Max Temperature</li>
                 </ul>
-            <li>e.g. /api/v1.0/2015-01-01/2016-02-03</li>
+            <li><a href="{{ url_for('stats_from_start', start='2015-01-01', end='2016-02-03')}}">
+                    e.g. /api/v1.0/2015-01-01/2016-02-03</a></li>
         </ul>
     </ul>
 
 </div>
 </body>
-</html>
+{% endblock %}
