@@ -3,9 +3,7 @@ from flask import Flask, jsonify, render_template
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 
-from sqlalchemy import func
 from sqlalchemy.ext.automap import automap_base
-
 
 import datetime as dt
 
@@ -13,7 +11,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'hard to guess string'
-app.config['SQLALCHEMY_DATABASE_URI'] =\
+app.config['SQLALCHEMY_DATABASE_URI'] = \
     'sqlite:///' + os.path.join(basedir, 'hawaii.sqlite')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -39,7 +37,7 @@ def index():
 @app.route('/api/v1.0/precipitation')
 def precipitation():
     precipitation_data = db.session.query(Measurement.date,
-                                       Measurement.prcp).all()
+                                          Measurement.prcp).all()
     return jsonify([{k: v} for k, v in precipitation_data])
 
 
@@ -72,9 +70,9 @@ def tobs():
 
 @app.route('/api/v1.0/<start>')
 def stats_from_start(start):
-    query = db.session.query(func.min(Measurement.tobs),
-                          func.avg(Measurement.tobs),
-                          func.max(Measurement.tobs)).filter(
+    query = db.session.query(db.func.min(Measurement.tobs),
+                             db.func.avg(Measurement.tobs),
+                             db.func.max(Measurement.tobs)).filter(
         Measurement.date >= start).first()
     keys = ['TMIN', 'TAVG', 'TMAX']
 
@@ -83,9 +81,9 @@ def stats_from_start(start):
 
 @app.route('/api/v1.0/<start>/<end>')
 def stats_from_start_end(start, end):
-    query = db.session.query(func.min(Measurement.tobs),
-                          func.avg(Measurement.tobs),
-                          func.max(Measurement.tobs)).filter(
+    query = db.session.query(db.func.min(Measurement.tobs),
+                             db.func.avg(Measurement.tobs),
+                             db.func.max(Measurement.tobs)).filter(
         Measurement.date >= start, Measurement.date <= end).first()
 
     keys = ['TMIN', 'TAVG', 'TMAX']
