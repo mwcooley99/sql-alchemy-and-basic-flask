@@ -44,7 +44,8 @@ def precipitation():
 @app.route('/api/v1.0/stations')
 def stations():
     stations = [s.__dict__ for s in db.session.query(Station).all()]
-    for station in stations: station.pop('_sa_instance_state', None)
+    for station in stations:
+        station.pop('_sa_instance_state', None)
 
     return jsonify(stations)
 
